@@ -1,0 +1,116 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision - 12;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x243bd80 .scope module, "testDRAM1" "testDRAM1" 2 5;
+ .timescale -9 -12;
+v0x2471da0_0 .var "addr_a", 2 0;
+v0x2471e40_0 .var "addr_b", 2 0;
+v0x2471ef0_0 .var "clk", 0 0;
+v0x2471fa0_0 .var "data_a", 3 0;
+v0x2472080_0 .net "q_b", 3 0, v0x2471ab0_0; 1 drivers
+v0x2472130_0 .var "re_b", 0 0;
+v0x24721b0_0 .var "we_a", 0 0;
+S_0x245e3a0 .scope module, "ram" "DRAM1" 2 15, 3 1, S_0x243bd80;
+ .timescale -9 -12;
+v0x245d0d0_0 .net "addr_a", 2 0, v0x2471da0_0; 1 drivers
+v0x24718c0_0 .net "addr_b", 2 0, v0x2471e40_0; 1 drivers
+v0x2471960_0 .net "clk", 0 0, v0x2471ef0_0; 1 drivers
+v0x2471a00_0 .net "data_a", 3 0, v0x2471fa0_0; 1 drivers
+v0x2471ab0_0 .var "q_b", 3 0;
+v0x2471b50 .array "ram", 0 7, 3 0;
+v0x2471c10_0 .net "re_b", 0 0, v0x2472130_0; 1 drivers
+v0x2471cb0_0 .net "we_a", 0 0, v0x24721b0_0; 1 drivers
+E_0x243a2f0 .event posedge, v0x2471960_0;
+    .scope S_0x245e3a0;
+T_0 ;
+    %wait E_0x243a2f0;
+    %load/v 8, v0x2471cb0_0, 1;
+    %jmp/0xz  T_0.0, 8;
+    %load/v 8, v0x2471a00_0, 4;
+    %ix/getv 3, v0x245d0d0_0;
+    %jmp/1 t_0, 4;
+    %ix/load 0, 4, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x2471b50, 0, 8;
+t_0 ;
+T_0.0 ;
+    %jmp T_0;
+    .thread T_0;
+    .scope S_0x245e3a0;
+T_1 ;
+    %wait E_0x243a2f0;
+    %load/v 8, v0x2471c10_0, 1;
+    %jmp/0xz  T_1.0, 8;
+    %ix/getv 3, v0x24718c0_0;
+    %load/av 8, v0x2471b50, 4;
+    %ix/load 0, 4, 0;
+    %assign/v0 v0x2471ab0_0, 0, 8;
+T_1.0 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0x243bd80;
+T_2 ;
+    %delay 4000, 0;
+    %load/v 8, v0x2471ef0_0, 1;
+    %inv 8, 1;
+    %set/v v0x2471ef0_0, 8, 1;
+    %jmp T_2;
+    .thread T_2;
+    .scope S_0x243bd80;
+T_3 ;
+    %vpi_call 2 20 "$dumpfile", "gtkws/testRAM1.vcd";
+    %vpi_call 2 21 "$dumpvars";
+    %end;
+    .thread T_3;
+    .scope S_0x243bd80;
+T_4 ;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x2471ef0_0, 0, 0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x24721b0_0, 0, 0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x2472130_0, 0, 0;
+    %ix/load 0, 3, 0;
+    %assign/v0 v0x2471da0_0, 0, 0;
+    %ix/load 0, 3, 0;
+    %assign/v0 v0x2471e40_0, 0, 0;
+    %movi 8, 1, 4;
+    %ix/load 0, 4, 0;
+    %assign/v0 v0x2471fa0_0, 0, 8;
+    %delay 4000, 0;
+    %wait E_0x243a2f0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x24721b0_0, 0, 1;
+    %delay 4000, 0;
+    %wait E_0x243a2f0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x24721b0_0, 0, 0;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x2472130_0, 0, 1;
+    %movi 8, 2, 3;
+    %ix/load 0, 3, 0;
+    %assign/v0 v0x2471da0_0, 0, 8;
+    %delay 4000, 0;
+    %wait E_0x243a2f0;
+    %movi 8, 2, 4;
+    %ix/load 0, 4, 0;
+    %assign/v0 v0x2471fa0_0, 0, 8;
+    %ix/load 0, 1, 0;
+    %assign/v0 v0x24721b0_0, 0, 1;
+    %movi 8, 2, 3;
+    %ix/load 0, 3, 0;
+    %assign/v0 v0x2471e40_0, 0, 8;
+    %delay 32000, 0;
+    %wait E_0x243a2f0;
+    %vpi_call 2 57 "$finish";
+    %end;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "TBDRam.v";
+    "./DRAM1.v";

@@ -1,14 +1,15 @@
 module DRAM1
 (
-	input [7:0] data_a,
-	input [5:0] addr_a, addr_b,
+	input [3:0] data_a,
+	input [2:0] addr_a, addr_b,
 	input we_a, re_b, clk,
-	output reg [7:0] q_b
+	output reg [3:0] q_b
 );
 
-	parameter f = 3, c = 7;
+	//parameter f = 3, c = 7;
 	// Declare the RAM variable
-	reg [f:0] ram[c:0];
+	//reg [f:0] ram[c];
+	reg [3:0] ram[7:0];
 
 	// Port A
 	always @ (posedge clk)
@@ -16,7 +17,6 @@ module DRAM1
 		if (we_a)
 		begin
 			ram[addr_a] <= data_a;
-
 		end
 
 	end

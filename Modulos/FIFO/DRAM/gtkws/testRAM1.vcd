@@ -1,0 +1,110 @@
+$date
+	Mon Jun 25 19:14:29 2018
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module testDRAM1 $end
+$var wire 4 ! q_b [3:0] $end
+$var reg 3 " addr_a [2:0] $end
+$var reg 3 # addr_b [2:0] $end
+$var reg 1 $ clk $end
+$var reg 4 % data_a [3:0] $end
+$var reg 1 & re_b $end
+$var reg 1 ' we_a $end
+$scope module ram $end
+$var wire 3 ( addr_a [2:0] $end
+$var wire 3 ) addr_b [2:0] $end
+$var wire 1 * clk $end
+$var wire 4 + data_a [3:0] $end
+$var wire 1 , re_b $end
+$var wire 1 - we_a $end
+$var reg 4 . q_b [3:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx .
+0-
+0,
+b1 +
+0*
+b0 )
+b0 (
+0'
+0&
+b1 %
+0$
+b0 #
+b0 "
+bx !
+$end
+#4000
+1$
+1*
+#8000
+0$
+0*
+#12000
+1'
+1-
+1$
+1*
+#16000
+0$
+0*
+#20000
+b10 "
+b10 (
+1&
+1,
+0'
+0-
+1$
+1*
+#24000
+0$
+0*
+#28000
+b1 .
+b1 !
+b10 #
+b10 )
+1'
+1-
+b10 %
+b10 +
+1$
+1*
+#32000
+0$
+0*
+#36000
+bx .
+bx !
+1$
+1*
+#40000
+0$
+0*
+#44000
+b10 .
+b10 !
+1$
+1*
+#48000
+0$
+0*
+#52000
+1$
+1*
+#56000
+0$
+0*
+#60000
+1$
+1*
