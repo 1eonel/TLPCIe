@@ -2,24 +2,28 @@
 
 //profe dijo que faltaba salida init a los muxes
 
-module fsm(clk, init, error_full, pause, continue, idle);
+module fsm(clk, reset, init, FIFOpause, FIFOcontinue, error_full, pause, continue, idle);
     input clk;
+    input reset;
     input init;
+    input FIFOpause;
+    input FIFOcontinue;
 
     output [3:0] error_full;
     output [3:0] pause;
     output [3:0] continue;
     output idle;
-    output init;
 
     reg [4:0] state, nxtState;
 
 
     always @ (posedge clk) begin
-    if (reset) begin
-    state <= RESET;
-    else
-    state <= nxtState;
+        if (reset) begin
+            state <= RESET;
+        end 
+        else
+            state <= nxtState;
+        end
     end
     
 
@@ -36,31 +40,47 @@ module fsm(clk, init, error_full, pause, continue, idle);
 
 
     always @ (*) begin
-    nxtState = state;
+        nxtState = state;
 
-    case (state)
+        case (state)
 
-    RESET:begin
-    nxtState = INIT;
-    end 
-    INIT:begin
-    nxtState = IDLE;
-    end 
-    IDLE:begin
-    end 
-    ACTIVE:begin
-    end 
-    CONTINUE:begin
-    end 
-    PAUSECONTINUE:begin
-    end 
-    ERROR:begin
-    end 
-    
+            RESET:begin
+                nxtState = INIT;
+            end 
+
+            INIT:begin
+                nxtState = IDLE;
+            end 
+
+            IDLE:begin
+            end 
+
+            ACTIVE:begin
+                if (FIFOpause==1 && FIFOcontinue==0) begin
+                nxtState = PAUSE;
+                end
+                if (FIFOpause==0 && FIFOcontinue==1) begin
+                nxtState = CONTINUE;
+                end
+                if (FIFOpause==1 && FIFOcontinue==1) begin
+                nxtState = PAUSECONTINUE;
+                end
+            end 
+
+            CONTINUE:begin //tarda 1 ciclo de clk y regresa
+
+            end 
+
+            PAUSECONTINUE:begin
+            end 
+
+            ERROR:begin
+            end 
+            
 
 
 
-    endcase
+        endcase
 
     end
 
