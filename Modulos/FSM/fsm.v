@@ -16,23 +16,51 @@ module fsm(clk, init, error_full, pause, continue, idle);
 
 
     always @ (posedge clk) begin
+    if (reset) begin
+    state <= RESET;
+    else
     state <= nxtState;
     end
+    
 
 
-//Codificación one-hot Estados:
-parameter [x:0]RESET = x'b000001; //RESET        = 000001
-parameter [x:0]INIT = x'b000010; //INIT          = 000010
-parameter [x:0]IDLE = x'b000100; //IDLE          = 000100
-parameter [x:0]ACTIVE = x'b001000; //PAUSE       = 001000
-parameter [x:0]CONTINUE = x'b010000; //CONTINUE  = 010000
-parameter [x:0]ERROR = x'b100000; //ERROR        = 100000
+
+    //Codificación one-hot Estados:
+    parameter [x:0]RESET = x'b0000001; //RESET        = 0000001
+    parameter [x:0]INIT = x'b0000010; //INIT          = 0000010
+    parameter [x:0]IDLE = x'b0000100; //IDLE          = 0000100
+    parameter [x:0]ACTIVE = x'b0001000; //PAUSE       = 0001000
+    parameter [x:0]CONTINUE = x'b0010000; //CONTINUE  = 0010000
+    parameter [x:0]PAUSECONTINUE = x'b0100000;//P&C   = 0100000
+    parameter [x:0]ERROR = x'b1000000; //ERROR        = 1000000
 
 
     always @ (*) begin
     nxtState = state;
 
     case (state)
+
+    RESET:begin
+    nxtState = INIT;
+    end 
+    INIT:begin
+    nxtState = IDLE;
+    end 
+    IDLE:begin
+    end 
+    ACTIVE:begin
+    end 
+    CONTINUE:begin
+    end 
+    PAUSECONTINUE:begin
+    end 
+    ERROR:begin
+    end 
+    
+
+
+
+    endcase
 
     end
 
