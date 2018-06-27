@@ -1,17 +1,17 @@
 module RoundRobin
 (
   //input [1:0] id,
-  input rst,
+  input reset,
   input req0,
   input req1,
   input req2,
   input req3,
   input clk,
-  output [1:0] out_id
+  output reg [1:0] out_id
 
 );
 
-reg [1:0] priority[15:0];
+wire [1:0] priority[15:0];
 
 assign priority[0] = 00;
 assign priority[1] = 00;
@@ -32,38 +32,33 @@ assign priority[15] = 11;
 
 reg [3:0] counter;
 
-//parameter ID0 = 2'b00, ID1 = 2'b01, ID2 = 2'b10, ID3 = 2'b11;
-
 always @ (posedge clk)
 begin
-  if (reset)begin
+  if (reset) begin
     counter <= 0;
-    end else case (priority[counter])
-      2'b00:
-            if (req0) begin
-              out_id <= 00;
-            end
-      2'b01:
-            if (req1) begin
-              out_id <= 01;
-            end
-      2'b10:
-            if (req2) begin
-              out_id <= 10;
-            end
-      2'b11:
-            if (req3) begin
-              out_id <= 11;
-            end
-    endcase
-    counter <= counter + 1;
-
-    // counter <= 0;
-    // if (req0) begin
-    //   out_id <= priority[counter];
-    //   counter <= counter + 1;
-    // end else if ()
-  end
+    end else begin
+      case (priority[counter])
+        2'b00:
+              if (req0) begin
+                out_id <= 00;
+              end
+        2'b01:
+              if (req1) begin
+                out_id <= 01;
+              end
+        2'b10:
+              if (req2) begin
+                out_id <= 10;
+              end
+        2'b11:
+              if (req3) begin
+                out_id <= 11;
+              end
+      endcase
+      counter <= counter + 1;
+      end
 
 
 end
+
+endmodule
