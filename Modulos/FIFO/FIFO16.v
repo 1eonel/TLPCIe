@@ -14,7 +14,7 @@ module FIFO
 	reg vueltaR;
 	reg vueltaW;
 
-	DRAM1 ram(.data_a(data_a), .addr_a(contadorW), .addr_b(contadorR), .we_a(push), .re_b(pop), .clk(clk), .q_b(q_b));
+	DRAM2 ram(.data_a(data_a), .addr_a(contadorW), .addr_b(contadorR), .we_a(push), .re_b(pop), .clk(clk), .q_b(q_b));
 
 
 	always @ (posedge clk) begin
