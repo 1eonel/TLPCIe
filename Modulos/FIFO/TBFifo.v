@@ -88,6 +88,21 @@
     # 4
     @ (posedge clk);
 
+    # 4
+    @ (posedge clk);
+
+    # 4
+    @ (posedge clk);
+
+    # 4
+    @ (posedge clk);
+
+    # 4
+    @ (posedge clk);
+
+    # 4
+    @ (posedge clk);
+
 
 
 
