@@ -1,0 +1,64 @@
+$date
+	Sat Jun 30 15:45:02 2018
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module counter $end
+$var reg 1 ! clk $end
+$var reg 4 " contadorR [3:0] $end
+$var reg 4 # contadorW [3:0] $end
+$var reg 1 $ pop $end
+$var reg 1 % push $end
+$var reg 1 & reset $end
+$var reg 1 ' vueltaR $end
+$var reg 1 ( vueltaW $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0(
+0'
+0&
+1%
+0$
+b0 #
+b0 "
+0!
+$end
+#4000
+b1 #
+1!
+#8000
+0!
+#12000
+b10 #
+1!
+#16000
+0!
+#20000
+b11 #
+1!
+#24000
+0!
+#28000
+b100 #
+1!
+#32000
+0!
+#36000
+b101 #
+1!
+#40000
+0!
+#44000
+b110 #
+1!
+#48000
+0!
+#52000
+b111 #
+1!
