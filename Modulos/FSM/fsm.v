@@ -6,6 +6,8 @@ module fsm(clk, reset, init,
 FIFOpause0, FIFOpause1, FIFOpause2, FIFOpause3, 
 FIFOcontinue0, FIFOcontinue1, FIFOcontinue2, FIFOcontinue3, 
 FIFOempty0, FIFOempty1, FIFOempty2, FIFOempty3,
+FIFOerror0, FIFOerror1, FIFOerror2, FIFOerror3,
+FIFOfull0, FIFOfull1, FIFOfull2, FIFOfull3, 
 error_full, pause, continue, idle);
 
     input clk;
@@ -23,28 +25,46 @@ error_full, pause, continue, idle);
     input FIFOempty1;
     input FIFOempty2;
     input FIFOempty3;
+    input FIFOerror0;
+    input FIFOerror1;
+    input FIFOerror2;
+    input FIFOerror3;
+    input FIFOfull0;
+    input FIFOfull1;
+    input FIFOfull2;
+    input FIFOfull3;
 
     output [3:0] error_full;
     output [3:0] pause;
     output [3:0] continue;
     output idle;
 
-    reg [x:0] state, nxtState;
+    reg [3:0] error_full;
+    reg [3:0] pause;
+    reg [3:0] continue;
+    reg idle;
+
+    reg [8:0] state, nxtState;
 
     //Codificación one-hot Estados:
-    parameter [x:0]RESET = x'b00000001; //RESET        = 00000001
-    parameter [x:0]INIT = x'b00000010; //INIT          = 00000010
-    parameter [x:0]IDLE = x'b00000100; //IDLE          = 00000100
-    parameter [x:0]ACTIVE = x'b00001000; //ACTIVE      = 00001000
-    parameter [x:0]PAUSE = x'b00010000; //PAUSE        = 00010000
-    parameter [x:0]CONTINUE = x'b00100000; //CONTINUE  = 00100000
-    parameter [x:0]PAUSECONTINUE = x'b01000000; //P&C  = 01000000
-    parameter [x:0]ERROR = x'b10000000; //ERROR        = 10000000
+    parameter [8:0]sRESET = 8'b00000001; //RESET        = 00000001
+    parameter [8:0]sINIT = 8'b00000010; //INIT          = 00000010
+    parameter [8:0]sIDLE = 8'b00000100; //IDLE          = 00000100
+    parameter [8:0]sACTIVE = 8'b00001000; //ACTIVE      = 00001000
+    parameter [8:0]sPAUSE = 8'b00010000; //PAUSE        = 00010000
+    parameter [8:0]sCONTINUE = 8'b00100000; //CONTINUE  = 00100000
+    parameter [8:0]sPAUSECONTINUE = 8'b01000000; //P&C  = 01000000
+    parameter [8:0]sERROR = 8'b10000000; //ERROR        = 10000000
 
     //Unification of FIFO signals
-    reg [3:0] FIFOpause;
-    reg [3:0] FIFOcontinue;
-    reg [3:0] FIFOempty;
+    wire [3:0] FIFOpause;
+    wire [3:0] FIFOcontinue;
+    wire [3:0] FIFOempty;
+    wire [3:0] FIFOfull;
+    wire [3:0] FIFOerror;
+    wire [3:0] FIFOpauseOR;
+    wire [3:0] FIFOcontinueOR;
+
 
     assign FIFOpause[0] = FIFOpause0;
     assign FIFOpause[1] = FIFOpause1;
@@ -61,91 +81,159 @@ error_full, pause, continue, idle);
     assign FIFOempty[2] = FIFOempty2;
     assign FIFOempty[3] = FIFOempty3;
 
+    assign FIFOerror[0] = FIFOerror0;
+    assign FIFOerror[1] = FIFOerror1;
+    assign FIFOerror[2] = FIFOerror2;
+    assign FIFOerror[3] = FIFOerror3;
+
+    assign FIFOfull[0] = FIFOfull0;
+    assign FIFOfull[1] = FIFOfull1;
+    assign FIFOfull[2] = FIFOfull2;
+    assign FIFOfull[3] = FIFOfull3;
+
+    assign FIFOpauseOR = FIFOfull || FIFOpause;
+    assign FIFOcontinueOR = FIFOempty || FIFOcontinue; 
+
     always @ (posedge clk) begin
         if (reset) begin
-            state <= RESET;
-        end 
-        else
+        state <= sRESET;
+        end
+        else if (init) begin
+            nxtState <= sINIT;
+        end else begin
             state <= nxtState;
         end
     end
     
 
     always @ (*) begin
+
         nxtState = state;
 
         case (state)
 
-            RESET:begin
-                nxtState = INIT;
+            sRESET:begin
+                nxtState = sINIT;
             end 
 
-            INIT:begin
-                nxtState = IDLE;
+            sINIT:begin
+                nxtState = sIDLE;
             end 
 
-            IDLE:begin
-                
+            sIDLE:begin
+                idle = 1;
                 if (FIFOempty !== 4'b0000) begin
-                  nxtState = ACTIVE;
+                idle = 0;
+                nxtState = sACTIVE;
                 end
             end 
 
-            ACTIVE:begin
-                if (FIFOpause = 4'b1111) begin
-                nxtState = PAUSE;
+            sACTIVE:begin
+                if (FIFOpauseOR !== 4'b0000 && FIFOcontinueOR == 4'b0000) begin
+                nxtState = sPAUSE;
                 end
 
-                if (FIFOcontinue == 4'b1111) begin
-                nxtState = CONTINUE;
+                /*if (FIFOfull !== 4'b0000 && FIFOcontinue == 4'b0000) begin
+                nxtState = PAUSE;
+                end*/
+
+                if (FIFOcontinueOR !== 4'b0000 && FIFOpauseOR == 4'b0000) begin
+                nxtState = sCONTINUE;
                 end
                 
-                if (FIFOpause !== 4'b0000 && FIFOcontinue !== 4'b1111) begin
-                nxtState = PAUSECONTINUE;
+                if (FIFOpauseOR !== 4'b0000 && FIFOcontinueOR !== 4'b0000) begin
+                nxtState = sPAUSECONTINUE;
                 end
+
+                if (FIFOerror !== 4'b0000) begin
+                nxtState = sERROR;
+                end
+
             end
 
-            PAUSE:begin
-                pause = 4'b1111;
-                nxtState = ACTIVE;
-            end 
-
-
-            CONTINUE:begin
-                continue = 4'b1111;
-                nxtState = ACTIVE
-
-            end 
-
-            PAUSECONTINUE:begin
-                if (FIFOpause[0]) begin
+            sPAUSE:begin
+                if (FIFOpauseOR[0]) begin
                 pause[0] = 1;                  
                 end
-                if (FIFOpause[1]) begin
+                if (FIFOpauseOR[1]) begin
                 pause[1] = 1;                  
                 end
-                if (FIFOpause[2]) begin
+                if (FIFOpauseOR[2]) begin
                 pause[2] = 1;                  
                 end
-                if (FIFOpause[3]) begin
+                if (FIFOpauseOR[3]) begin
                 pause[3] = 1;                  
                 end
 
-                if (FIFOcontinue[0]) begin
-                continue[0] = 1;  
-                if (FIFOcontinue[1]) begin
+                nxtState = sACTIVE;
+            end 
+
+
+            sCONTINUE:begin
+                if (FIFOcontinueOR[0]) begin
+                continue[0] = 1;                  
+                end
+                if (FIFOcontinueOR[1]) begin
+                continue[1] = 1;                  
+                end
+                if (FIFOcontinueOR[2]) begin
+                continue[2] = 1;                  
+                end
+                if (FIFOcontinueOR[3]) begin
+                continue[3] = 1;                  
+                end
+
+                nxtState = sACTIVE;
+
+            end 
+
+            sPAUSECONTINUE:begin
+                if (FIFOpauseOR[0]) begin
+                pause[0] = 1;                  
+                end
+                if (FIFOpauseOR[1]) begin
+                pause[1] = 1;                  
+                end
+                if (FIFOpauseOR[2]) begin
+                pause[2] = 1;                  
+                end
+                if (FIFOpauseOR[3]) begin
+                pause[3] = 1;                  
+                end
+
+                if (FIFOcontinueOR[0]) begin
+                continue[0] = 1;
+                end  
+                if (FIFOcontinueOR[1]) begin
                 continue[1] = 1;  
-                if (FIFOcontinue[2]) begin
+                end
+                if (FIFOcontinueOR[2]) begin
                 continue[2] = 1;  
-                if (FIFOcontinue[3]) begin
+                end
+                if (FIFOcontinueOR[3]) begin
                 continue[3] = 1;                  
                 end  
 
-                nxtState = ACTIVE;   
+                nxtState = sACTIVE;   
         
             end 
 
-            ERROR:begin
+            sERROR:begin
+                if (reset) begin
+                nxtState <= sRESET;
+                end
+                if (FIFOerror[0]) begin
+                  error_full[0] = 1;
+                end
+                if (FIFOerror[1]) begin
+                  error_full[1] = 1;
+                end
+                if (FIFOerror[2]) begin
+                  error_full[2] = 1;
+                end
+                if (FIFOerror[3]) begin
+                  error_full[3] = 1;
+                end
             end 
             
 
