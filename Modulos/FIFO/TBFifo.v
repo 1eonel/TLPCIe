@@ -77,6 +77,7 @@
 
     # 4
     @ (posedge clk);
+    push <= 0;
 
     # 4
     @ (posedge clk);
