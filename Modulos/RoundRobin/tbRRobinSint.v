@@ -1,8 +1,8 @@
 
+`include "cmos_cells.v"
+`include "RoundRobin_sint.v"
 
-`include "RoundRobin.v"
-
-module tbRRobin ();
+module tbRRobinSint ();
 
   reg reset;
   reg clk;
@@ -40,7 +40,7 @@ module tbRRobin ();
   always #2 clk = !clk;
 
   initial begin
-    $dumpfile("gtkws/testRRobin.vcd");
+    $dumpfile("gtkws/testRRobin_sint.vcd");
     $dumpvars;
   end
 
