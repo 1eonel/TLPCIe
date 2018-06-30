@@ -1,6 +1,6 @@
 module DRAM1
 (
-	input [3:0] data_a,
+	input [2:0] data_a,
 	input [2:0] addr_a, addr_b,
 	input we_a, re_b, clk,
 	output reg [3:0] q_b
