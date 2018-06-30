@@ -4,7 +4,7 @@ all:
 	gtkwave gtkws/testFSM.vcd
 
 sint:
-	iverilog -o bin/pruebaSint tbFSM.v
+	iverilog -o bin/pruebaSint tbFSMSint.v
 	vvp bin/pruebaSint
 	gtkwave gtkws/testFSM_sint.vcd
 

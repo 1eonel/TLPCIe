@@ -1,4 +1,4 @@
-`include "DRAM1.v"
+`include "DRAM/DRAM1.v"
 
 
 module FIFO

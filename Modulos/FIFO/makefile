@@ -4,9 +4,9 @@ all:
 	gtkwave gtkws/testFIFO.vcd
 
 sint:
-	iverilog -o bin/pruebaSint tbRRobinSint.v
+	iverilog -o bin/pruebaSint tbFIFO_sint.v
 	vvp bin/pruebaSint
-	gtkwave gtkws/testRRobin_sint.vcd
+	gtkwave gtkws/testFIFO_sint.vcd
 
 clean:
 	rm *.dot
