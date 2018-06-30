@@ -1,8 +1,11 @@
-module DRAM1
+`include "DRAM1.v"
+
+
+module FIFO
 (
 	input [3:0] data_a,
 	input clk, push, pop, reset,
-	output reg [3:0] q_b
+	output wire [3:0] q_b,
   output reg error, full, empty, almost_full, almost_empty
 );
 
@@ -16,8 +19,8 @@ module DRAM1
 
 always @ (posedge clk) begin
 	if (reset == 0) begin
-		contadorR <= 0;
-		vueltaR <= 0;
+		contadorR <= 4'd0000;
+		vueltaR <= 4'd0000;
 		empty <= 1;
 		full <= 0;
 		almost_full <= 0;
@@ -51,7 +54,7 @@ always @ (posedge clk) begin
 				empty <= 0;
 				full <= 0;
 				error <= 0;
-				if (contadorW + 8 - contadorR=<1) begin
+				if (contadorW + 8 - contadorR<=1) begin
 					almost_empty <= 1;
 					almost_full <= 0;
 				end else if (contadorW + 8 - contadorR >= 6) begin
@@ -67,7 +70,7 @@ always @ (posedge clk) begin
 				empty <= 0;
 				full <= 0;
 				error <= 0;
-				if (contadorW - contadorR=<1) begin
+				if (contadorW - contadorR<=1) begin
 					almost_empty <= 1;
 					almost_full <= 0;
 				end else if (contadorW - contadorR >= 6) begin
@@ -91,10 +94,15 @@ end
 
 always @ (posedge clk) begin
 	if (push) begin
-		contadorW <= contadorW == 7 ? 0 : contadorW+1;
+		// if (contadorW == 7) begin
+		// 	contadorW <= 0;
+		// end else begin
+		// 	contadorW <= contadorW+1;
+		// end
+		contadorW <= contadorW == 7 ? 0 : contadorW+4'd0001;
 	end
 
-	if (pull) begin
+	if (pop) begin
 		contadorR <= contadorR == 7 ? 0 : contadorR+1;
 	end
 end
