@@ -30,20 +30,21 @@ module TB;
     wire [3:0] continue;
     wire idle;
 
-    fsm fsmachine (.clk(clk), .reset(reset), .init(init), 
-    .FIFOpause0(FIFOpause0), .FIFOpause1(FIFOpause1), .FIFOpause2(FIFOpause2), .FIFOpause3(FIFOpause3), 
-    .FIFOcontinue0(FIFOcontinue0), .FIFOcontinue1(FIFOcontinue1), .FIFOcontinue2(FIFOcontinue2), .FIFOcontinue3(FIFOcontinue3), 
+    fsm fsmachine (.clk(clk), .reset(reset), .init(init),
+    .FIFOpause0(FIFOpause0), .FIFOpause1(FIFOpause1), .FIFOpause2(FIFOpause2), .FIFOpause3(FIFOpause3),
+    .FIFOcontinue0(FIFOcontinue0), .FIFOcontinue1(FIFOcontinue1), .FIFOcontinue2(FIFOcontinue2), .FIFOcontinue3(FIFOcontinue3),
     .FIFOempty0(FIFOempty0), .FIFOempty1(FIFOempty1), .FIFOempty2(FIFOempty2), .FIFOempty3(FIFOempty3),
     .FIFOerror0(FIFOerror0), .FIFOerror1(FIFOerror1), .FIFOerror2(FIFOerror2), .FIFOerror3(FIFOerror3),
-    .FIFOfull0(FIFOfull0), .FIFOfull1(FIFOfull1), .FIFOfull2(FIFOfull2), .FIFOfull3(FIFOfull3), 
+    .FIFOfull0(FIFOfull0), .FIFOfull1(FIFOfull1), .FIFOfull2(FIFOfull2), .FIFOfull3(FIFOfull3),
     .error_full(error_full), .pause(pause), .continue(continue), .idle(idle));
 
    	always #2 clk = !clk; //clk sgl.
 
     initial begin
     $display ("test fsm");
+    $dumpfile("gtkws/testFSM.vcd");
     $dumpvars;
-    
+
     $display( "time\t clk, reset, init, FIFOpause0, FIFOpause1, FIFOpause2, FIFOpause3, FIFOcontinue0, FIFOcontinue1, FIFOcontinue2, FIFOcontinue3, FIFOempty0, FIFOempty1, FIFOempty2, FIFOempty3,FIFOerror0, FIFOerror1, FIFOerror2, FIFOerror3, FIFOfull0, FIFOfull1, FIFOfull2, FIFOfull3, error_full, pause, continue, idle");
 
 
@@ -81,20 +82,17 @@ module TB;
     reset = 0;
 
     #4
-  
+
     #6
 
-   
-  
 
 
-    
+
+
+
     $finish;
 
 
     end
 
     endmodule
-
-
-
