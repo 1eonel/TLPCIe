@@ -79,18 +79,42 @@ module tbRRobinSint ();
     req1 <= 0;
     req2 <= 0;
     req3 <= 0;
-    #16
+    #8
 
     req0 <= 0;
     req1 <= 0;
     req2 <= 1;
+    req3 <= 0;
+
+    #16
+
+    req0 <= 0;
+    req1 <= 0;
+    req2 <= 0;
     req3 <= 1;
 
     #16
 
+    req0 <= 1;
+    req1 <= 0;
+    req2 <= 0;
+    req3 <= 0;
 
+    #16
 
+    req0 <= 0;
+    req1 <= 0;
+    req2 <= 0;
+    req3 <= 1;
 
+    #16
+
+    req0 <= 0;
+    req1 <= 1;
+    req2 <= 0;
+    req3 <= 1;
+
+    #32
 
     $finish;
 

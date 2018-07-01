@@ -55,14 +55,15 @@ module DRAM1(data_a, addr_a, addr_b, we_a, re_b, clk, q_b);
   input [2:0] data_a;
   (* src = "DRAM/DRAM1.v:6" *)
   output [3:0] q_b;
-  wire [3:0] \ram[0] ;
-  wire [3:0] \ram[1] ;
-  wire [3:0] \ram[2] ;
-  wire [3:0] \ram[3] ;
-  wire [3:0] \ram[4] ;
-  wire [3:0] \ram[5] ;
-  wire [3:0] \ram[6] ;
-  wire [3:0] \ram[7] ;
+  reg [3:0] q_b;
+  reg [3:0] \ram[0] ;
+  reg [3:0] \ram[1] ;
+  reg [3:0] \ram[2] ;
+  reg [3:0] \ram[3] ;
+  reg [3:0] \ram[4] ;
+  reg [3:0] \ram[5] ;
+  reg [3:0] \ram[6] ;
+  reg [3:0] \ram[7] ;
   (* src = "DRAM/DRAM1.v:5" *)
   input re_b;
   (* src = "DRAM/DRAM1.v:5" *)
@@ -141,186 +142,78 @@ module DRAM1(data_a, addr_a, addr_b, we_a, re_b, clk, q_b);
   assign _016_ = ~_000_[2];
   assign _015_ = ~_000_[1];
   assign _014_ = ~_000_[0];
-  DFF _115_ (
-    .C(clk),
-    .D(_034_[0]),
-    .Q(\ram[1] [0])
-  );
-  DFF _116_ (
-    .C(clk),
-    .D(_034_[1]),
-    .Q(\ram[1] [1])
-  );
-  DFF _117_ (
-    .C(clk),
-    .D(_034_[2]),
-    .Q(\ram[1] [2])
-  );
-  DFF _118_ (
-    .C(clk),
-    .D(_034_[3]),
-    .Q(\ram[1] [3])
-  );
-  DFF _119_ (
-    .C(clk),
-    .D(_036_[0]),
-    .Q(\ram[3] [0])
-  );
-  DFF _120_ (
-    .C(clk),
-    .D(_036_[1]),
-    .Q(\ram[3] [1])
-  );
-  DFF _121_ (
-    .C(clk),
-    .D(_036_[2]),
-    .Q(\ram[3] [2])
-  );
-  DFF _122_ (
-    .C(clk),
-    .D(_036_[3]),
-    .Q(\ram[3] [3])
-  );
-  DFF _123_ (
-    .C(clk),
-    .D(_037_[0]),
-    .Q(\ram[4] [0])
-  );
-  DFF _124_ (
-    .C(clk),
-    .D(_037_[1]),
-    .Q(\ram[4] [1])
-  );
-  DFF _125_ (
-    .C(clk),
-    .D(_037_[2]),
-    .Q(\ram[4] [2])
-  );
-  DFF _126_ (
-    .C(clk),
-    .D(_037_[3]),
-    .Q(\ram[4] [3])
-  );
-  DFF _127_ (
-    .C(clk),
-    .D(_039_[0]),
-    .Q(\ram[6] [0])
-  );
-  DFF _128_ (
-    .C(clk),
-    .D(_039_[1]),
-    .Q(\ram[6] [1])
-  );
-  DFF _129_ (
-    .C(clk),
-    .D(_039_[2]),
-    .Q(\ram[6] [2])
-  );
-  DFF _130_ (
-    .C(clk),
-    .D(_039_[3]),
-    .Q(\ram[6] [3])
-  );
-  DFF _131_ (
-    .C(clk),
-    .D(_038_[0]),
-    .Q(\ram[5] [0])
-  );
-  DFF _132_ (
-    .C(clk),
-    .D(_038_[1]),
-    .Q(\ram[5] [1])
-  );
-  DFF _133_ (
-    .C(clk),
-    .D(_038_[2]),
-    .Q(\ram[5] [2])
-  );
-  DFF _134_ (
-    .C(clk),
-    .D(_038_[3]),
-    .Q(\ram[5] [3])
-  );
-  DFF _135_ (
-    .C(clk),
-    .D(_040_[0]),
-    .Q(\ram[7] [0])
-  );
-  DFF _136_ (
-    .C(clk),
-    .D(_040_[1]),
-    .Q(\ram[7] [1])
-  );
-  DFF _137_ (
-    .C(clk),
-    .D(_040_[2]),
-    .Q(\ram[7] [2])
-  );
-  DFF _138_ (
-    .C(clk),
-    .D(_040_[3]),
-    .Q(\ram[7] [3])
-  );
-  DFF _139_ (
-    .C(clk),
-    .D(_017_[0]),
-    .Q(q_b[0])
-  );
-  DFF _140_ (
-    .C(clk),
-    .D(_017_[1]),
-    .Q(q_b[1])
-  );
-  DFF _141_ (
-    .C(clk),
-    .D(_017_[2]),
-    .Q(q_b[2])
-  );
-  DFF _142_ (
-    .C(clk),
-    .D(_017_[3]),
-    .Q(q_b[3])
-  );
-  DFF _143_ (
-    .C(clk),
-    .D(_035_[0]),
-    .Q(\ram[2] [0])
-  );
-  DFF _144_ (
-    .C(clk),
-    .D(_035_[1]),
-    .Q(\ram[2] [1])
-  );
-  DFF _145_ (
-    .C(clk),
-    .D(_035_[2]),
-    .Q(\ram[2] [2])
-  );
-  DFF _146_ (
-    .C(clk),
-    .D(_035_[3]),
-    .Q(\ram[2] [3])
-  );
-  DFF _147_ (
-    .C(clk),
-    .D(_033_[0]),
-    .Q(\ram[0] [0])
-  );
-  DFF _148_ (
-    .C(clk),
-    .D(_033_[1]),
-    .Q(\ram[0] [1])
-  );
-  DFF _149_ (
-    .C(clk),
-    .D(_033_[2]),
-    .Q(\ram[0] [2])
-  );
-  DFF _150_ (
-    .C(clk),
-    .D(_033_[3]),
-    .Q(\ram[0] [3])
-  );
+  always @(posedge clk)
+      \ram[1] [0] <= _034_[0];
+  always @(posedge clk)
+      \ram[1] [1] <= _034_[1];
+  always @(posedge clk)
+      \ram[1] [2] <= _034_[2];
+  always @(posedge clk)
+      \ram[1] [3] <= _034_[3];
+  always @(posedge clk)
+      \ram[3] [0] <= _036_[0];
+  always @(posedge clk)
+      \ram[3] [1] <= _036_[1];
+  always @(posedge clk)
+      \ram[3] [2] <= _036_[2];
+  always @(posedge clk)
+      \ram[3] [3] <= _036_[3];
+  always @(posedge clk)
+      \ram[4] [0] <= _037_[0];
+  always @(posedge clk)
+      \ram[4] [1] <= _037_[1];
+  always @(posedge clk)
+      \ram[4] [2] <= _037_[2];
+  always @(posedge clk)
+      \ram[4] [3] <= _037_[3];
+  always @(posedge clk)
+      \ram[6] [0] <= _039_[0];
+  always @(posedge clk)
+      \ram[6] [1] <= _039_[1];
+  always @(posedge clk)
+      \ram[6] [2] <= _039_[2];
+  always @(posedge clk)
+      \ram[6] [3] <= _039_[3];
+  always @(posedge clk)
+      \ram[5] [0] <= _038_[0];
+  always @(posedge clk)
+      \ram[5] [1] <= _038_[1];
+  always @(posedge clk)
+      \ram[5] [2] <= _038_[2];
+  always @(posedge clk)
+      \ram[5] [3] <= _038_[3];
+  always @(posedge clk)
+      \ram[7] [0] <= _040_[0];
+  always @(posedge clk)
+      \ram[7] [1] <= _040_[1];
+  always @(posedge clk)
+      \ram[7] [2] <= _040_[2];
+  always @(posedge clk)
+      \ram[7] [3] <= _040_[3];
+  always @(posedge clk)
+      q_b[0] <= _017_[0];
+  always @(posedge clk)
+      q_b[1] <= _017_[1];
+  always @(posedge clk)
+      q_b[2] <= _017_[2];
+  always @(posedge clk)
+      q_b[3] <= _017_[3];
+  always @(posedge clk)
+      \ram[2] [0] <= _035_[0];
+  always @(posedge clk)
+      \ram[2] [1] <= _035_[1];
+  always @(posedge clk)
+      \ram[2] [2] <= _035_[2];
+  always @(posedge clk)
+      \ram[2] [3] <= _035_[3];
+  always @(posedge clk)
+      \ram[0] [0] <= _033_[0];
+  always @(posedge clk)
+      \ram[0] [1] <= _033_[1];
+  always @(posedge clk)
+      \ram[0] [2] <= _033_[2];
+  always @(posedge clk)
+      \ram[0] [3] <= _033_[3];
   assign _027_ = _006_ & we_a;
   assign _002_ = _015_ & _016_;
   assign _028_ = _007_ & we_a;

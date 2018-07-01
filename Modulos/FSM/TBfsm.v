@@ -83,13 +83,12 @@ module TB;
     //Todos los FIFOS estan vacios, asi que estamos en IDLE
 
     #4
-<<<<<<< HEAD
     //Agregamos contenido a un FIFO para pasar a ACTIVE
     FIFOempty0 = 0;
     FIFOempty1 = 0;
     FIFOempty2 = 0;
     FIFOempty3 = 0;
-  
+
     #4
     //Encendemos señal del FIFO0 almost full, para pasar a PAUSE
     FIFOpause0 = 1;
@@ -97,7 +96,7 @@ module TB;
     FIFOpause2 = 1;
     FIFOpause3 = 1;
     #4
-    
+
     //Estamos en Pause
     //FIFOpause0 = 0;
     //FIFOcontinue0 =1;
@@ -131,15 +130,10 @@ module TB;
     #8
     //-----------
     reset = 1;
-    
+
     #16
-=======
 
     #6
-
->>>>>>> 3bf526c2e143bd7ab59154114a1b540fea440b3a
-
-
 
 
 
