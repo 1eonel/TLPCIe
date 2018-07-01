@@ -52,6 +52,7 @@ module TB;
     $monitor ("%g\t       %b   ",
     $time, clk);
 
+    // Empezamos en init
     clk = 0;
     reset = 0;
     init = 1;
@@ -64,10 +65,10 @@ module TB;
     FIFOcontinue1 = 0;
     FIFOcontinue2 = 0;
     FIFOcontinue3 = 0;
-    FIFOempty0 = 0;
-    FIFOempty1 = 0;
-    FIFOempty2 = 0;
-    FIFOempty3 = 0;
+    FIFOempty0 = 1;
+    FIFOempty1 = 1;
+    FIFOempty2 = 1;
+    FIFOempty3 = 1;
     FIFOerror0 = 0;
     FIFOerror1 = 0;
     FIFOerror2 = 0;
@@ -79,12 +80,64 @@ module TB;
 
     #4
     init = 0;
-    reset = 0;
+    //Todos los FIFOS estan vacios, asi que estamos en IDLE
 
     #4
+<<<<<<< HEAD
+    //Agregamos contenido a un FIFO para pasar a ACTIVE
+    FIFOempty0 = 0;
+    FIFOempty1 = 0;
+    FIFOempty2 = 0;
+    FIFOempty3 = 0;
+  
+    #4
+    //Encendemos señal del FIFO0 almost full, para pasar a PAUSE
+    FIFOpause0 = 1;
+    FIFOpause1 = 1;
+    FIFOpause2 = 1;
+    FIFOpause3 = 1;
+    #4
+    
+    //Estamos en Pause
+    //FIFOpause0 = 0;
+    //FIFOcontinue0 =1;
+    #4
+    //Vuelve a Active
+    FIFOpause0 = 0;
+    FIFOpause1 = 0;
+    FIFOpause2 = 0;
+    FIFOpause3 = 0;
+
+    FIFOcontinue0 = 1;
+    FIFOcontinue1 = 1;
+    FIFOcontinue2 = 1;
+    FIFOcontinue3 = 1;
+
+    #8
+    FIFOpause0 = 1;
+    FIFOpause1 = 0;
+    FIFOpause2 = 1;
+    FIFOpause3 = 0;
+
+    FIFOcontinue0 = 0;
+    FIFOcontinue1 = 1;
+    FIFOcontinue2 = 0;
+    FIFOcontinue3 = 1;
+
+    #8
+
+    FIFOerror0 = 1;
+    #8
+    #8
+    //-----------
+    reset = 1;
+    
+    #16
+=======
 
     #6
 
+>>>>>>> 3bf526c2e143bd7ab59154114a1b540fea440b3a
 
 
 
