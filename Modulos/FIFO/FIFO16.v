@@ -14,7 +14,7 @@ module FIFO
 	reg vueltaR;
 	reg vueltaW;
 
-	DRAM1 ram(.data_a(data_a), .addr_a(contadorW), .addr_b(contadorR), .we_a(push), .re_b(pop), .clk(clk), .q_b(q_b));
+	DRAM2 ram(.data_a(data_a), .addr_a(contadorW), .addr_b(contadorR), .we_a(push), .re_b(pop), .clk(clk), .q_b(q_b));
 
 
 	always @ (posedge clk) begin
@@ -94,7 +94,7 @@ module FIFO
 
 	always @ (posedge clk) begin
 		if (push) begin
-			if (contadorW == 7) begin
+			if (contadorW == 15) begin
 				contadorW <= 0;
 				vueltaW <= vueltaW == 1 ? 0 : 1;
 			end else begin
@@ -104,7 +104,7 @@ module FIFO
 		end
 
 		if (pop) begin
-			if (contadorR == 7) begin
+			if (contadorR == 15) begin
 				contadorR <= 0;
 				vueltaR <= vueltaR == 1 ? 0 : 1;
 			end else begin

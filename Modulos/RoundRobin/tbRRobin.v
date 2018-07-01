@@ -5,8 +5,8 @@
 module tbRRobin ();
 
   reg reset;
-  reg clk; 
-      
+  reg clk;
+
   reg req0;
   reg req1;
   reg req2;
@@ -28,8 +28,8 @@ module tbRRobin ();
   reg [1:0] p13;
   reg [1:0] p14;
   reg [1:0] p15;
-   
-  
+
+
   wire valid;
   wire [1:0] out_id;
 
@@ -47,21 +47,21 @@ module tbRRobin ();
   initial begin
     reset <= 1;
     clk <= 0;
-    p0 <= 2'b00; 
-    p1 <= 2'b00; 
-    p2 <= 2'b00; 
-    p3 <= 2'b11; 
-    p4 <= 2'b01; 
-    p5 <= 2'b10; 
-    p6 <= 2'b01;  
-    p7 <= 2'b01; 
-    p8 <= 2'b11; 
-    p9 <= 2'b01; 
+    p0 <= 2'b00;
+    p1 <= 2'b00;
+    p2 <= 2'b00;
+    p3 <= 2'b11;
+    p4 <= 2'b01;
+    p5 <= 2'b10;
+    p6 <= 2'b01;
+    p7 <= 2'b01;
+    p8 <= 2'b11;
+    p9 <= 2'b01;
     p10 <= 2'b01;
-    p11 <= 2'b00; 
-    p12 <= 2'b10; 
-    p13 <= 2'b10; 
-    p14 <= 2'b01; 
+    p11 <= 2'b00;
+    p12 <= 2'b10;
+    p13 <= 2'b10;
+    p14 <= 2'b01;
     p15 <= 2'b00;
 
     req0 <= 0;
@@ -70,7 +70,7 @@ module tbRRobin ();
     req3 <= 0;
 
     #2
-    
+
     reset <= 0;
 
     #2
@@ -87,7 +87,7 @@ module tbRRobin ();
     req3 <= 1;
 
     #16
-     
+
 
 
 
